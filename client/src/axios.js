@@ -15,3 +15,31 @@ export const getMovieDetails = async (id) => {
   );
   return response.data;
 };
+
+export const getTvShowByQuery = async (query) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/search/tv?api_key=${apiKey}&query=${query}`
+  );
+  return response.data;
+};
+
+export const getTvShowDetails = async (id) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/tv/${id}?api_key=${apiKey}`
+  );
+  return response.data;
+};
+
+export const getActorsByQuery = async (query) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/search/person?api_key=${apiKey}&query=${query}`
+  );
+  return response.data;
+};
+
+export const getActorDetails = async (id) => {
+  const response = await axios.get(
+    `https://api.themoviedb.org/3/person/${id}?api_key=${apiKey}`
+  );
+  return response.data;
+};

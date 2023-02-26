@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { Button, Form, Input, Card } from 'antd';
 
 function Login() {
   const navigate = useNavigate();
@@ -15,25 +16,6 @@ function Login() {
   };
 
   const handleLogin = (e) => {
-    //Email and password should be required.
-
-    e.preventDefault();
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email || !emailRegex.test(email)) {
-      alert('Please enter a valid email address');
-      return;
-    }
-    if (!password) {
-      alert('Password is required');
-      return;
-    }
-    // Password should be longer than 6 letters.
-
-    if (password.length < 6) {
-      alert('Password should be longer than 6 characters');
-      return;
-    }
-
     // TODO: change it to md5 or bcrypt to hash the password. (for security)
 
     localStorage.setItem('email', email);
@@ -42,30 +24,96 @@ function Login() {
   };
 
   return (
-    <div>
-      <form onSubmit={handleLogin}>
-        <label htmlFor="email">Email</label>
-        <input
-          type="email"
-          id="email"
-          name="email"
-          value={email}
-          onChange={handleEmailChange}
-          autoFocus
-          required
-        />
-        <label htmlFor="password">Password</label>
-        <input
-          type="password"
-          id="password"
-          name="password"
-          value={password}
-          onChange={handlePasswordChange}
-          required
-        />
+    <div
+      style={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
+        height: '70vh',
+      }}
+    >
+      <Card
+        style={{
+          width: '500px',
+          height: '200px',
+        }}
+      >
+        <Form
+          name="basic"
+          labelCol={{
+            span: 6,
+          }}
+          wrapperCol={{
+            span: 12,
+          }}
+          initialValues={{
+            remember: true,
+          }}
+          autoComplete="off"
+          onFinish={handleLogin}
+        >
+          <Form.Item
+            label="Email"
+            name="email"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your email!',
+              },
+              {
+                type: 'email',
+                message: 'Please enter a valid email address',
+              },
+            ]}
+          >
+            <Input
+              type="email"
+              id="email"
+              name="email"
+              value={email}
+              onChange={handleEmailChange}
+              autoFocus
+              required
+            />
+          </Form.Item>
 
-        <button type="submit">Login</button>
-      </form>
+          <Form.Item
+            label="Password"
+            name="password"
+            rules={[
+              {
+                required: true,
+                message: 'Please input your password!',
+              },
+              {
+                min: 6,
+                message: 'Password should be longer than 6 characters',
+              },
+            ]}
+          >
+            <Input.Password
+              type="password"
+              id="password"
+              name="password"
+              value={password}
+              onChange={handlePasswordChange}
+              required
+            />
+          </Form.Item>
+
+          <Form.Item
+            wrapperCol={{
+              offset: 6,
+              span: 12,
+            }}
+          >
+            <Button type="primary" htmlType="submit">
+              Login
+            </Button>
+          </Form.Item>
+        </Form>
+      </Card>
     </div>
   );
 }

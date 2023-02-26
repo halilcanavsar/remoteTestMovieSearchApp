@@ -1,9 +1,9 @@
 import SearchResults from '../../components/searchResults/SearchResults';
 
-function Home({ movies }) {
+function Home({ results, searchType }) {
   return (
     <div>
-      <SearchResults movies={movies} />
+      <SearchResults results={results} searchType={searchType} />
     </div>
   );
 }

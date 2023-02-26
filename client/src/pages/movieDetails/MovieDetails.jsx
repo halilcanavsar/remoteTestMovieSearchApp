@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { getMovieDetails } from '../../axios';
 import { useParams } from 'react-router-dom';
+
 function MovieDetails() {
   const { id } = useParams();
   const [movie, setMovie] = useState({});
